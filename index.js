@@ -52,7 +52,7 @@ const sendRequest = () => {
         obj: testRequestObj, signed, timestamp, nonce: rand_num
     }
     console.dir(reqObj);
-    /* 用自己的公钥加密数据 */
+    /* 用公钥加密数据 */
     const nobj = reciver_key.publicKey.encrypt(JSON.stringify(reqObj),'base64');
     console.dir(nobj);
     return nobj;
@@ -62,7 +62,7 @@ const sendRequest = () => {
 const receiveRequest = (hex) => {
     /* 检查nonce是否已经被请求（一般存在redis） */
     /* 检查timestamp是否在有效范围 （比如60s）*/
-    /* 解密 */
+    /* 私钥解密 */
     const request = reciver_key.privateKey.decrypt(hex,'json');
     const newobj = {}
     /* 参数序列化 */
