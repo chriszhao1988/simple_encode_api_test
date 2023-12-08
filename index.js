@@ -7,8 +7,11 @@
 const nodeRSA = require('node-rsa');
 const fs = require('fs');
 
-const PUBLICKEY = fs.readFileSync('./servers_public_key.pem', 'utf8');
-const PRIVATEKEY = fs.readFileSync('./servers_private_key.pem', 'utf8');
+const PUBLICKEY = fs.readFileSync('./test_rsa_public.key', 'utf8');
+const PRIVATEKEY = fs.readFileSync('./test_rsa_private.key', 'utf8');
+const PUBLICKEY2 = fs.readFileSync('./test2_rsa_public.key', 'utf8');
+const PRIVATEKEY2 = fs.readFileSync('./test2_rsa_private.key', 'utf8');
+
 /*const key = new nodeRSA();
 key.importKey(PUBLICKEY,'pkcs8-public-pem');
 key.importKey(PRIVATEKEY,'pkcs8-private-pem');
@@ -20,8 +23,8 @@ const sender_key = {
     privateKey : new nodeRSA(PRIVATEKEY)
 }
 const reciver_key = {
-    publicKey : new nodeRSA(PUBLICKEY),
-    privateKey : new nodeRSA(PRIVATEKEY)
+    publicKey : new nodeRSA(PUBLICKEY2),
+    privateKey : new nodeRSA(PRIVATEKEY2)
 }
 
 
