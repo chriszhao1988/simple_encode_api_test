@@ -7,7 +7,6 @@
 
 const crypto = require('crypto');
 const eccrypto = require('eccrypto');
-const fs = require('fs');
 
 const PRIVATEKEY1 = 'c7357c3bbb59ca58154f29854e980907938854f96b9e7ec797a7823e0f156070';
 const PUBLICKEY1 = '04454e9f64cb715bf4687306175f59804bc94b44bfa0e9ee585aeb29e83f87baf4089048c948a487930df670cdf2a048130883dda83f52ee6e6fc7fa0710f6af81';
@@ -23,7 +22,6 @@ const signature = async () => {
     /* ECDSA */
     const str = "message to sign";
     const msg = crypto.createHash("sha256").update(str).digest();
-
     try {
         const signature = await eccrypto.sign(privatekey1, msg);
         const signatureStr = signature.toString('hex');
@@ -66,6 +64,7 @@ const encryptiontest = async () => {
 }
 
 const encryptiontest2 = async () => {
+    /* 这里模拟的场景是通过key1的公钥来加密信息 */
     /* ECIES */
     const SECRET = 'secret text';
     const str = await eccrypto.encrypt(publickey1,Buffer.from(SECRET));
