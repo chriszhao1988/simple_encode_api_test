@@ -39,7 +39,10 @@ const encryption = async (SECRET) => {
     const sharkey = await eccrypto.derive(privatekey1, publickey2);
     const key = sharkey.toString('hex');
     const nonce = key.slice(0, 32);
-    const str = crypto.createCipheriv('chacha20', Buffer.from(key, 'hex'), Buffer.from(nonce, 'hex')).update(SECRET, 'utf8', 'hex');
+    const cipher = crypto.createCipheriv('chacha20', Buffer.from(key, 'hex'), Buffer.from(nonce, 'hex'));
+    let str = cipher.update(SECRET, 'utf8', 'hex');
+    str += cipher.final('hex');
+    console.dir(str);
     return str;
 
 }
@@ -49,7 +52,10 @@ const decryption = async (str) => {
     const sharkey = await eccrypto.derive(privatekey2, publickey1);
     const key = sharkey.toString('hex');
     const nonce = key.slice(0, 32);
-    const res = crypto.createCipheriv('chacha20', Buffer.from(key, 'hex'), Buffer.from(nonce, 'hex')).update(str, 'hex', 'utf8');
+    const cipher = crypto.createCipheriv('chacha20', Buffer.from(key, 'hex'), Buffer.from(nonce, 'hex'));
+    let res = cipher.update(str, 'hex', 'utf8');
+    res += cipher.final('utf8');
+    console.dir(res);
     return res;
 }
 
